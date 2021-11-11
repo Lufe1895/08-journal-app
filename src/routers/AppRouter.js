@@ -6,6 +6,7 @@ import {
   } from "react-router-dom";
 import { LoginScreen } from "../components/auth/LoginScreen";
 import { RegisterScreen } from "../components/auth/RegisterScreen";
+import { AuthContainer } from "../components/containers/AuthContainer";
 import { JournalScreen } from "../components/journal/JournalScreen";
 
 export const AppRouter = () => {
@@ -13,10 +14,10 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <Routes>
-                    <Route exact path="/auth">
-                        <Route exact path="/auth/login" element={ <LoginScreen /> } />
-                        <Route exact path="/auth/register" element={ <RegisterScreen /> } />
-                        <Route path="/auth/*" element={ <Navigate to="/auth/login" /> } />
+                    <Route exact path="/auth/" element={ <AuthContainer /> }>
+                        <Route exact path="login" element={ <LoginScreen /> } />
+                        <Route exact path="register" element={ <RegisterScreen /> } />
+                        <Route path="*" element={ <Navigate to="/auth/login" /> } />
                     </Route>
 
                     <Route
