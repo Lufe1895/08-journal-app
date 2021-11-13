@@ -8,6 +8,7 @@ import {
     Navigate,
   } from "react-router-dom";
 import { login } from "../actions/auth";
+import { startLoadingNotes } from "../actions/notes";
 import { LoginScreen } from "../components/auth/LoginScreen";
 import { RegisterScreen } from "../components/auth/RegisterScreen";
 import { AuthContainer } from "../components/containers/AuthContainer";
@@ -23,10 +24,12 @@ export const AppRouter = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async(user) => {
             if(user?.uid) {
                 dispatch(login(user.uid, user.displayName));
                 setIsLoggedIn(true);
+
+                dispatch(startLoadingNotes(user.uid));
             } else {
                 setIsLoggedIn(false);
             }
